@@ -14,6 +14,8 @@ public:
 	void Delete();
 	std::string GetFileContents(const char* fileName);
 
+private:
+	void CompileErrors(unsigned int shader, const char* type);
 public:
 	GLuint ID;
 };

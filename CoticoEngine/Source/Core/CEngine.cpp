@@ -1,12 +1,14 @@
 #include "CEngine.h"
 
+GLuint uniID;
+
 GLfloat vertices[] = {
-		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
-		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f,
-		-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,
-		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,
-		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f,
+		-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,		0.8f, 0.5f, 0.92f,
+		0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,			0.8f, 0.3f, 0.02f,
+		0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f,		1.0f, 0.6f, 0.32f,
+		-0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,		0.9f, 0.45f, 0.57f,
+		0.5f / 2, 0.5f * float(sqrt(3)) / 6, 0.0f,		0.9f, 0.85f, 0.17f,
+		0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f,			0.8f, 0.4f, 0.52f,
 };
 
 GLuint indices[] = {
@@ -38,10 +40,14 @@ CEngine::CEngine()
 	VBO1 = new VBO(vertices, sizeof(vertices));
 	EBO1 = new EBO(indices, sizeof(indices));
 
-	VAO1->LinkVBO(*VBO1, 0);
+	VAO1->LinkAttrib(*VBO1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*) 0);
+	VAO1->LinkAttrib(*VBO1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	VAO1->UnBind();
 	VBO1->UnBind();
 	EBO1->UnBind();
+
+	uniID = glGetUniformLocation(shaderProgram->ID, "scale");
+
 }
 
 void CEngine::Draw()
@@ -49,6 +55,7 @@ void CEngine::Draw()
 	glClearColor(0.07f, 0.13f, 0.17f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	shaderProgram->Activate();
+	glUniform1f(uniID, 0.25f);
 	VAO1->Bind();
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 
