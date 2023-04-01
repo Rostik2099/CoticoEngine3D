@@ -12,6 +12,7 @@ project "CoticoEngine"
 		"Source/**.cpp",
 		"ThirdParty/include/**.hpp",
 		"ThirdParty/include/**.inl",
+		"ThirdParty/include/**.c",
 	}
 
 	includedirs 
@@ -22,6 +23,7 @@ project "CoticoEngine"
 
 	libdirs
 	{
+		"ThirdParty/lib",
 	}
 
 	defines
@@ -30,6 +32,7 @@ project "CoticoEngine"
 
 	links
 	{
+		"glfw3.lib",
 		"opengl32.lib",
 	}
 	
