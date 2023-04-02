@@ -11,7 +11,7 @@ public:
 
 	void CreateWindow(std::string windowName, int width, int height);
 	bool WindowShouldClose() { return glfwWindowShouldClose(window); };
-	GLFWwindow* GetWindow() { return this->window; };
+	GLFWwindow* GetGLWindow() { return this->window; };
 
 private:
 	GLFWwindow* window;

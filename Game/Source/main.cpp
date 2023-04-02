@@ -3,11 +3,11 @@
 int main()
 {
 	CEngine Engine;
-	//Engine.CreateWindow("Cotico Engine");
 
 	while (!Engine.WindowShouldClose())
 	{
 		Engine.Draw();
+		Engine.Update();
 	}
 
 	return 0;
