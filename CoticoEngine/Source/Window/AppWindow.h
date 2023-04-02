@@ -9,7 +9,7 @@ public:
 	AppWindow();
 	~AppWindow();
 
-	void CreateWindow(std::string windowName);
+	void CreateWindow(std::string windowName, int width, int height);
 	bool WindowShouldClose() { return glfwWindowShouldClose(window); };
 	GLFWwindow* GetWindow() { return this->window; };
 

@@ -1,19 +1,22 @@
 #include "CEngine.h"
 
-GLuint uniID, texUni, texture;
-int widthImg, heightImg, numColCh;
-unsigned char* bytes;
+int scrWidth = 800, scrHeight = 800;
 
 GLfloat vertices[] = {
-		-0.5f, -0.5f, 0.f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
-		-0.5f, 0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-		0.5f, 0.5f, 0.0f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
-		0.5f, -0.5f, 0.0f,		1.0f, 1.0f, 0.1f,	1.0f, 0.0f,
+		-0.5f, 0.0f, 0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
+		-0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	5.0f, 0.0f,
+		0.5f, 0.0f, -0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
+		0.5f, 0.0f, 0.5f,		1.0f, 1.0f, 0.1f,	5.0f, 0.0f,
+		0.0f, 0.8f, 0.0f,		1.0f, 1.0f, 0.1f,	2.5f, 5.0f,
 };
 
 GLuint indices[] = {
-	0, 2, 1,
-	0, 3, 2,
+	0, 1, 2,
+	0, 2, 3,
+	0, 1, 4,
+	1, 2, 4,
+	2, 3, 4,
+	3, 0, 4,
 };
 
 CEngine::CEngine()
@@ -25,12 +28,12 @@ CEngine::CEngine()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	appWindow = new AppWindow;
-	appWindow->CreateWindow("Cool Window");
+	appWindow->CreateWindow("Cool Window", scrWidth, scrHeight);
 	glfwMakeContextCurrent(appWindow->GetWindow());
 
 	gladLoadGL();
 
-	glViewport(0, 0, 800, 800);
+	glViewport(0, 0, scrWidth, scrHeight);
 
 	shaderProgram = new Shader("Shaders/default_vert.glsl", "Shaders/default_frag.glsl");
 	VAO1 = new VAO;
@@ -46,22 +49,26 @@ CEngine::CEngine()
 	VBO1->UnBind();
 	EBO1->UnBind();
 
-	uniID = glGetUniformLocation(shaderProgram->ID, "scale");
-
 	texture = new Texture("Content/Textures/unnamed.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	texture->texUnit(*shaderProgram, "tex0", 0);
 	
+	glEnable(GL_DEPTH_TEST);
+
+	camera = new Camera(scrWidth, scrHeight, glm::vec3(0.0f, 0.0f, 2.0f));
 }
 
 void CEngine::Draw()
 {
 	glClearColor(0.07f, 0.13f, 0.17f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shaderProgram->Activate();
-	glUniform1f(uniID, 0.25f);
+
+	camera->Inputs(appWindow->GetWindow());
+	camera->Matrix(45.0f, 0.1f, 100.f, *shaderProgram, "camMatrix");
+
 	texture->Bind();
 	VAO1->Bind();
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
 
 	glfwSwapBuffers(appWindow->GetWindow());
 	glfwPollEvents();
