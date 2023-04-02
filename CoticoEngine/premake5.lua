@@ -10,9 +10,8 @@ project "CoticoEngine"
 	{
 		"Source/**.h",
 		"Source/**.cpp",
-		"ThirdParty/include/**.hpp",
-		"ThirdParty/include/**.inl",
 		"ThirdParty/include/**.c",
+		"ThirdParty/include/stb/stb.cpp",
 	}
 
 	includedirs 

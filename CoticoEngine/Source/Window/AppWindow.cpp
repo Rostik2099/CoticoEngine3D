@@ -9,7 +9,7 @@ AppWindow::~AppWindow()
 
 void AppWindow::CreateWindow(std::string windowName)
 {
-	window = glfwCreateWindow(900, 600, windowName.c_str(), NULL, NULL);
+	window = glfwCreateWindow(800, 800, windowName.c_str(), NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create window" << std::endl;

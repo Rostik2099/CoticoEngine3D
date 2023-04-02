@@ -4,12 +4,14 @@
 
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-
+#include<stb/stb_image.h>
+	
 #include"Window/AppWindow.h"
 #include"Render/Shader.h"
 #include"Render/OpenGL/VAO.h"
 #include"Render/OpenGL/VBO.h"
 #include"Render/OpenGL/EBO.h"
+#include"Render/Texture.h"
 
 class CEngine
 {
@@ -30,5 +32,6 @@ private:
 	VAO* VAO1;
 	VBO* VBO1;
 	EBO* EBO1;
+	Texture* texture;
 };
 
