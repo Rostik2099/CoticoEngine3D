@@ -2,21 +2,19 @@
 
 int scrWidth = 800, scrHeight = 800;
 
-GLfloat vertices[] = {
-		-0.5f, 0.0f, 0.5f,		1.0f, 0.0f, 0.0f,	0.0f, 0.0f,
-		-0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	5.0f, 0.0f,
-		0.5f, 0.0f, -0.5f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
-		0.5f, 0.0f, 0.5f,		1.0f, 1.0f, 0.1f,	5.0f, 0.0f,
-		0.0f, 0.8f, 0.0f,		1.0f, 1.0f, 0.1f,	2.5f, 5.0f,
+Vertex vertices[] =
+{ //               COORDINATES           /            COLORS              TEXTURE COORDINATES    //
+	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f),	 glm::vec2(0.0f, 0.0f)},
+	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f),	 glm::vec2(0.0f, 1.0f)},
+	Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f),	glm::vec2(1.0f, 1.0f)},
+	Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f),	glm::vec2(1.0f, 0.0f)}
 };
 
-GLuint indices[] = {
+// Indices for vertices order
+GLuint indices[] =
+{
 	0, 1, 2,
-	0, 2, 3,
-	0, 1, 4,
-	1, 2, 4,
-	2, 3, 4,
-	3, 0, 4,
+	0, 2, 3
 };
 
 CEngine::CEngine()
@@ -35,25 +33,18 @@ CEngine::CEngine()
 
 	glViewport(0, 0, scrWidth, scrHeight);
 
+	Texture textures[]
+	{
+		Texture("Content/Textures/unnamed.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
+	};
+
 	shaderProgram = new Shader("Shaders/default_vert.glsl", "Shaders/default_frag.glsl");
-	VAO1 = new VAO;
-	VAO1->Bind();
-
-	VBO1 = new VBO(vertices, sizeof(vertices));
-	EBO1 = new EBO(indices, sizeof(indices));
-
-	VAO1->LinkAttrib(*VBO1, 0, 3, GL_FLOAT, 8 * sizeof(float), (void*) 0);
-	VAO1->LinkAttrib(*VBO1, 1, 3, GL_FLOAT, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1->LinkAttrib(*VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	VAO1->UnBind();
-	VBO1->UnBind();
-	EBO1->UnBind();
-
-	texture = new Texture("Content/Textures/unnamed.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
-	texture->texUnit(*shaderProgram, "tex0", 0);
+	std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+	std::vector<GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
+	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
+	floor = new Mesh(verts, inds, texs);
 	
 	glEnable(GL_DEPTH_TEST);
-
 	camera = new Camera(scrWidth, scrHeight, glm::vec3(0.0f, 0.0f, 2.0f));
 }
 
@@ -64,11 +55,9 @@ void CEngine::Draw()
 	shaderProgram->Activate();
 
 	camera->Inputs(appWindow->GetWindow());
-	camera->Matrix(45.0f, 0.1f, 100.f, *shaderProgram, "camMatrix");
+	camera->UpdateMatrix(45.0f, 0.1f, 100.f);
 
-	texture->Bind();
-	VAO1->Bind();
-	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);
+	floor->Draw(*shaderProgram, *camera);
 
 	glfwSwapBuffers(appWindow->GetWindow());
 	glfwPollEvents();
@@ -76,10 +65,6 @@ void CEngine::Draw()
 
 CEngine::~CEngine()
 {
-	VAO1->Delete();
-	VBO1->Delete();
-	EBO1->Delete();
-	texture->Delete();
 	shaderProgram->Delete();
 	delete appWindow;
 	glfwTerminate();
