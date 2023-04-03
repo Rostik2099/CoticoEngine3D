@@ -5,8 +5,12 @@ template<typename T>
 class Ref
 {
 public:
-	Ref();
+	Ref() {};
 	Ref(std::weak_ptr<T> pointer)
+	{
+		this->ptr = pointer;
+	};
+	Ref(std::shared_ptr<T> pointer)
 	{
 		this->ptr = pointer;
 	};

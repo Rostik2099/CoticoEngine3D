@@ -1,16 +1,13 @@
 #include"World.h"
 #include"CEngine.h"
 #include"CObject.h"
+#include"Components/BaseComponent.h"
 #include<iostream>
 
 World::World(CEngine* engine)
 {
 	this->engine = engine;
-
-	for (int i = 0; i < 10; i++)
-	{
-		SpawnObject<CObject>();
-	}
+	std::cout << "Aboba" << std::endl;
 }
 
 void World::Update()
