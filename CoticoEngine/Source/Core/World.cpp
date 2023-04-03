@@ -2,12 +2,14 @@
 #include"CEngine.h"
 #include"CObject.h"
 #include"Components/BaseComponent.h"
+#include"Components/CubeMapComponent.h"
 #include<iostream>
 
 World::World(CEngine* engine)
 {
 	this->engine = engine;
-	std::cout << "Aboba" << std::endl;
+
+	SpawnComponent<CubeMapComponent>();
 }
 
 void World::Update()

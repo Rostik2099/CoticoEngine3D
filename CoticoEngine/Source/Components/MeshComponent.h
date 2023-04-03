@@ -9,6 +9,7 @@ public:
 	~MeshComponent();
 
 	Mesh* GetMesh() { return this->mesh; };
+	virtual void Draw(Shader& shader, Camera& camera);
 private:
 	Mesh* mesh;
 };

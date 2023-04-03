@@ -6,6 +6,7 @@ Texture::Texture(const char* imagePath, const char* texType, GLenum slot, GLenum
 	int widthImg, heightImg, numColCh;
 	stbi_set_flip_vertically_on_load(true);
 	unsigned char* bytes = stbi_load(imagePath, &widthImg, &heightImg, &numColCh, 0);
+	if (!bytes) std::cout << "Failed to load texture: " << imagePath << std::endl;
 
 	glGenTextures(1, &ID);
 	glActiveTexture(slot);

@@ -32,3 +32,8 @@ MeshComponent::~MeshComponent()
 {
 	delete mesh;
 }
+
+void MeshComponent::Draw(Shader& shader, Camera& camera)
+{
+	mesh->Draw(shader, camera);
+}
