@@ -33,20 +33,22 @@ GLuint Cubeindices[] =
 
 CubeMapComponent::CubeMapComponent()
 {
-	skyboxShader = new Shader("Shaders/skybox_vert.glsl", "Shaders/skybox_frag.glsl");
+	shaderProgram = new Shader("Shaders/skybox_vert.glsl", "Shaders/skybox_frag.glsl");
+	shaderProgram->Activate();
+	glUniform1i(glGetUniformLocation(shaderProgram->ID, "skybox0"), 0);
 
 	Texture textures[]
 	{
 		CubeMapTexture(
 			{
-				"Content/Textures/unnamed.png",
+				"Content/Textures/green+grass.png",
 				"Content/Textures/unnamed.png",
 				"Content/Textures/unnamed.png",
 				"Content/Textures/unnamed.png",
 				"Content/Textures/unnamed.png",
 				"Content/Textures/unnamed.png",
 
-			}, "skybox", 0, GL_RGB, GL_UNSIGNED_BYTE),
+			}, "skybox", 0),
 	};
 
 	std::vector<Vertex> verts(Cubevertices, Cubevertices + sizeof(Cubevertices) / sizeof(Vertex));
@@ -55,24 +57,19 @@ CubeMapComponent::CubeMapComponent()
 	this->mesh = new Mesh(verts, inds, texs);
 }
 
-CubeMapComponent::~CubeMapComponent()
-{
-	delete mesh;
-}
-
 void CubeMapComponent::Draw(Camera& camera)
 {
 	glDepthFunc(GL_LEQUAL);
-	skyboxShader->Activate();
+	shaderProgram->Activate();
 
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 	view = glm::mat4(glm::mat3(glm::lookAt(camera.position, camera.position + camera.orientation, camera.up)));
 	projection = glm::perspective(glm::radians(45.0f), (float)(800 / 800), 0.1f, 100.f);
-	glUniformMatrix4fv(glGetUniformLocation(skyboxShader->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(glGetUniformLocation(skyboxShader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-	mesh->Draw(*skyboxShader, camera);
+	mesh->Draw(*shaderProgram, camera);
 
 	glDepthFunc(GL_LESS);
 }

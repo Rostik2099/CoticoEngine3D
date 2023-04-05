@@ -1,7 +1,7 @@
 #pragma once
 #include<vector>
 #include<memory>
-#include"Memory/SoftReference.h"
+#include"Types/SoftReference.h"
 
 class MeshComponent;
 class BaseComponent;

@@ -57,3 +57,10 @@ void MeshComponent::SetTexture(const char* texturePath)
 	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
 	mesh->textures = texs;
 }
+
+void MeshComponent::SetLocation(CVector newLoc)
+{
+	this->location = newLoc;
+	shaderProgram->Activate();
+	glUniform3f(glGetUniformLocation(shaderProgram->ID, "location"), location.x, location.y, location.z);
+}

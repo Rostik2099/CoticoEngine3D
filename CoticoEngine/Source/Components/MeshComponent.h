@@ -1,5 +1,6 @@
 #pragma once
 #include"BaseComponent.h"
+#include"Types/CVector.h"
 #include"Render/Mesh.h"
 
 class MeshComponent : public BaseComponent
@@ -13,7 +14,10 @@ public:
 
 	void SetShaders(const char* vertShader, const char* fragShader);
 	void SetTexture(const char* texturePath);
-private:
+	void SetLocation(CVector newLoc);
+
+protected:
 	Mesh* mesh;
 	Shader* shaderProgram = nullptr;
+	CVector location;
 };

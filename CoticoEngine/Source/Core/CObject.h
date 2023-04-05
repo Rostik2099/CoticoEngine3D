@@ -3,7 +3,7 @@
 #include<vector>
 #include<string>
 #include"Core/World.h"
-#include"Memory/SoftReference.h"
+#include"Types/SoftReference.h"
 #include"Components/BaseComponent.h"
 
 class CObject
@@ -13,7 +13,9 @@ public:
 
 	virtual void Update();
 	void Destroy();
+	std::vector<Ref<BaseComponent>> GetComponentsList() { return this->components; };
 
+protected:
 	template<typename T>
 	Ref<T> SpawnObject()
 	{
@@ -30,7 +32,6 @@ public:
 	};
 
 	World* GetWorld() { return World::Get(); };
-	std::vector<Ref<BaseComponent>> GetComponentsList() { return this->components; };
 private:
 	std::vector<Ref<BaseComponent>> components;
 };

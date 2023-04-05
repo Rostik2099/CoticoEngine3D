@@ -19,13 +19,21 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 	EBO.UnBind();
 }
 
+Mesh::~Mesh()
+{
+	for (auto texture : textures)
+	{
+		texture.Delete();
+	}
+}
+
 void Mesh::Draw(Shader& shader, Camera& camera)
 {
-	shader.Activate();
+	shader.Activate(); 
 	VAO.Bind();
-
+	
 	unsigned int numDiffuse = 0;
-
+	
 	for (unsigned int i = 0; i < textures.size(); i++)
 	{
 		std::string num;
@@ -34,8 +42,10 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 		textures[i].texUnit(shader, (type + num).c_str(), i);
 		textures[i].Bind();
 	}
-
+	
 	camera.Matrix(shader, "camMatrix");
-
+	
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	VAO.UnBind();
+	textures[0].UnBind();
 }

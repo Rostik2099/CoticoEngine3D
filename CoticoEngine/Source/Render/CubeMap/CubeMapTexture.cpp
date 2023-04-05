@@ -1,14 +1,13 @@
 #include "CubeMapTexture.h"
 #include<iostream>
 
-CubeMapTexture::CubeMapTexture(std::vector<const char*> textures, const char* texType, GLenum slot, GLenum format, GLenum pixelType) 
+CubeMapTexture::CubeMapTexture(std::vector<const char*> textures, const char* texType, GLenum slot) 
 {
 	type = texType;
 	std::cout << texType << std::endl;
 	stbi_set_flip_vertically_on_load(false);
 
 	glGenTextures(1, &ID);
-	glActiveTexture(slot);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -18,20 +17,16 @@ CubeMapTexture::CubeMapTexture(std::vector<const char*> textures, const char* te
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	for (int i = 0; i < textures.size(); i++)
+	for (int i = 0; i < 6; i++)
 	{
 		int widthImg, heightImg, numColCh;
 		unsigned char* bytes = stbi_load(textures[i], &widthImg, &heightImg, &numColCh, 0);
 		if (bytes)
 		{
-			glTexImage2D(GL_TEXTURE_CUBE_MAP + i, 0, GL_RGB, widthImg, heightImg, 0, format, pixelType, bytes);
-			stbi_image_free(bytes);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, widthImg, heightImg, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes);
 		}
-		else
-		{
-			std::cout << "Failde to load texture: " << textures[i] << std::endl;
-			stbi_image_free(bytes);
-		}
+		else std::cout << "Failde to load texture: " << textures[i] << std::endl;
+		stbi_image_free(bytes);
 	}
 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
