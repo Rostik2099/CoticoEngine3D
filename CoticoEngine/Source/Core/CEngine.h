@@ -36,4 +36,3 @@ private:
 	Renderer* renderer;
 	World* world;
 };
-

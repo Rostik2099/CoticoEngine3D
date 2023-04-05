@@ -14,13 +14,8 @@ public:
 	Renderer(CEngine* engine);
 	~Renderer();
 
-	void Render();
-	void AddMeshComp(std::shared_ptr<MeshComponent> mesh) { meshComps.push_back(mesh); };
+	void Render(std::vector<std::shared_ptr<MeshComponent>> meshComps);
 private:
 	CEngine* engine;
-	std::vector<std::shared_ptr<MeshComponent>> meshComps;
-
-	Shader* shaderProgram;
-	Mesh* floor;
 };
 

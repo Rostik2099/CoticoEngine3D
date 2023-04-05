@@ -60,7 +60,7 @@ CubeMapComponent::~CubeMapComponent()
 	delete mesh;
 }
 
-void CubeMapComponent::Draw(Shader& shader, Camera& camera)
+void CubeMapComponent::Draw(Camera& camera)
 {
 	glDepthFunc(GL_LEQUAL);
 	skyboxShader->Activate();

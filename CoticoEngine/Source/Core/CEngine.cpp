@@ -16,7 +16,7 @@ CEngine::CEngine()
 
 void CEngine::Draw()
 {
-	renderer->Render();
+	renderer->Render(world->GetMeshComps());
 }
 
 void CEngine::Update()

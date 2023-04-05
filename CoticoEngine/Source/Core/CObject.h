@@ -10,7 +10,11 @@ class CObject
 {
 public:
 	CObject() {};
-	CObject(World* world) { this->world = world; };
+	CObject(World* world) 
+	{
+		CObject::CObject();
+		this->world = world; 
+	};
 	~CObject() { std::cout << "Object deleted" << std::endl; };
 
 	virtual void Update();
@@ -25,10 +29,11 @@ public:
 	template<typename T>
 	Ref<T> CreateComponent()
 	{
+		std::cout << "Biba" << std::endl;
 		return GetWorld()->SpawnComponent<T>();
 	};
 
-	World* GetWorld() { return this->world; };
+	World* GetWorld();
 	void SetWorld(World* world) { this->world = world; };
 private:
 	World* world;

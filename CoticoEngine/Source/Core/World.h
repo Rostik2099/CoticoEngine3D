@@ -11,9 +11,9 @@ class World
 {
 public:
 	World(CEngine* engine);
-
 	void Update();
 	void DestroyObject(CObject* object);
+	std::vector<std::shared_ptr<MeshComponent>> GetMeshComps() { return this->meshComps; };
 
 	template<typename Type>
 	Ref<Type> SpawnObject()
@@ -32,7 +32,7 @@ public:
 		newComp->SetWorld(this);
 		if (dynamic_cast<MeshComponent*>(newComp.get()))
 		{
-			engine->GetRenderer()->AddMeshComp(std::shared_ptr<MeshComponent>(newComp));
+			this->meshComps.push_back(newComp);
 		}
 		else
 		{
@@ -41,7 +41,6 @@ public:
 		Ref<Type> compRef(newComp);
 		return compRef;
 	};
-
 private:
 	void DeleteObjects();
 
@@ -49,6 +48,7 @@ private:
 	CEngine* engine;
 	std::vector<std::shared_ptr<CObject>> objects;
 	std::vector<std::shared_ptr<BaseComponent>> components;
+	std::vector<std::shared_ptr<MeshComponent>> meshComps;
 	std::vector<CObject*> deletionList;
 };
 

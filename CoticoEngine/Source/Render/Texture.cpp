@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-Texture::Texture(const char* imagePath, const char* texType, GLenum slot, GLenum format, GLenum pixelType) 
+Texture::Texture(const char* imagePath, const char* texType, GLenum slot) 
 {
 	type = texType;
 	int widthImg, heightImg, numColCh;
@@ -18,7 +18,19 @@ Texture::Texture(const char* imagePath, const char* texType, GLenum slot, GLenum
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, format, pixelType, bytes);
+	if (numColCh == 4)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGBA, GL_UNSIGNED_BYTE, bytes);
+	}
+	if (numColCh == 3)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes);
+	}
+	if (numColCh == 1)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImg, heightImg, 0, GL_RED, GL_UNSIGNED_BYTE, bytes);
+	}
+
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(bytes);

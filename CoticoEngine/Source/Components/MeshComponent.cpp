@@ -20,8 +20,10 @@ MeshComponent::MeshComponent()
 {
 	Texture textures[]
 	{
-		Texture("Content/Textures/unnamed.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
+		Texture("Content/Textures/unnamed.png", "diffuse", 0),
 	};
+	shaderProgram = new Shader("Shaders/default_vert.glsl", "Shaders/default_frag.glsl");
+
 	std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
 	std::vector<GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
 	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
@@ -31,9 +33,27 @@ MeshComponent::MeshComponent()
 MeshComponent::~MeshComponent()
 {
 	delete mesh;
+	delete shaderProgram;
 }
 
-void MeshComponent::Draw(Shader& shader, Camera& camera)
+void MeshComponent::Draw(Camera& camera)
 {
-	mesh->Draw(shader, camera);
+	mesh->Draw(*shaderProgram, camera);
+}
+
+void MeshComponent::SetShaders(const char* vertShader, const char* fragShader)
+{
+	if (!shaderProgram) delete shaderProgram;
+
+	shaderProgram = new Shader(vertShader, fragShader);
+}
+
+void MeshComponent::SetTexture(const char* texturePath)
+{
+	Texture textures[]
+	{
+		Texture(texturePath, "diffuse", 0),
+	};
+	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
+	mesh->textures = texs;
 }

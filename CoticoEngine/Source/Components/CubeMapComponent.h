@@ -8,7 +8,7 @@ public:
 	~CubeMapComponent();
 
 	Mesh* GetMesh() { return this->mesh; };
-	void Draw(Shader& shader, Camera& camera) override;
+	void Draw(Camera& camera) override;
 private:
 	Mesh* mesh;
 	Shader* skyboxShader;

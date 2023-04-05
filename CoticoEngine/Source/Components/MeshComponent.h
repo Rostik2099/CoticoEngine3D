@@ -9,7 +9,11 @@ public:
 	~MeshComponent();
 
 	Mesh* GetMesh() { return this->mesh; };
-	virtual void Draw(Shader& shader, Camera& camera);
+	virtual void Draw(Camera& camera);
+
+	void SetShaders(const char* vertShader, const char* fragShader);
+	void SetTexture(const char* texturePath);
 private:
 	Mesh* mesh;
+	Shader* shaderProgram = nullptr;
 };

@@ -8,8 +8,7 @@
 World::World(CEngine* engine)
 {
 	this->engine = engine;
-
-	SpawnComponent<CubeMapComponent>();
+	//SpawnComponent<MeshComponent>()->SetTexture("Content/Textures/green+grass.png");
 }
 
 void World::Update()
