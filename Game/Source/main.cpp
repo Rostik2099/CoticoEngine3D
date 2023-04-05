@@ -4,7 +4,7 @@
 int main()
 {
 	CEngine Engine;
-	//Engine.GetWorld()->SpawnObject<TestObject>();
+	World::Get()->SpawnObject<TestObject>();
 
 	while (!Engine.WindowShouldClose())
 	{

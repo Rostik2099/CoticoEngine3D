@@ -1,13 +1,14 @@
 #pragma once
+#include "Core/World.h"
+#include <iostream>
 
-class World;
 class BaseComponent
 {
 public:
 	BaseComponent() {};
+	~BaseComponent() { std::cout << "Component deleted" << std::endl; };
 
-	void SetWorld(World* world) { this->world = world; };
 	virtual void Update() {};
-private:
-	World* world;
+protected:
+	World* GetWorld() { return World::Get(); };
 };

@@ -5,5 +5,7 @@
 TestObject::TestObject()
 {
 	mesh = CreateComponent<MeshComponent>();
+	mesh2 = CreateComponent<MeshComponent>();
+	//Destroy();
 }
 

@@ -14,7 +14,7 @@ public:
 	Renderer(CEngine* engine);
 	~Renderer();
 
-	void Render(std::vector<std::shared_ptr<MeshComponent>> meshComps);
+	void Render();
 private:
 	CEngine* engine;
 };

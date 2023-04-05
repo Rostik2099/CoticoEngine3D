@@ -5,12 +5,6 @@
 #include"Components/CubeMapComponent.h"
 #include<iostream>
 
-World::World(CEngine* engine)
-{
-	this->engine = engine;
-	//SpawnComponent<MeshComponent>()->SetTexture("Content/Textures/green+grass.png");
-}
-
 void World::Update()
 {
 	for (auto obj : objects)
@@ -18,16 +12,21 @@ void World::Update()
 		obj->Update();
 	}
 	DeleteObjects();
+	DeleteComps();
 }
 
 void World::DestroyObject(CObject* object)
 {
-	deletionList.push_back(object);
+	objectDeletionList.push_back(object);
+	for (auto comp : object->GetComponentsList())
+	{
+		compsDeletionList.push_back(comp.GetRaw());
+	}
 }
 
 void World::DeleteObjects()
 {
-	for (auto deleteObj : deletionList)
+	for (auto deleteObj : objectDeletionList)
 	{
 		int pos = 0;
 		for (auto obj : objects)
@@ -40,5 +39,38 @@ void World::DeleteObjects()
 		}
 		objects.erase(objects.begin() + pos);
 	}
-	deletionList.clear();
+	objectDeletionList.clear();
+}
+
+void World::DeleteComps()
+{
+	for (auto deleteComp : compsDeletionList)
+	{
+		int pos = 0;
+		if (dynamic_cast<MeshComponent*>(deleteComp))
+		{
+			for (auto comp : meshComps)
+			{
+				if (comp.get() == deleteComp)
+				{
+					break;
+				}
+				pos++;
+			}
+			meshComps.erase(meshComps.begin() + pos);
+		}
+		else
+		{
+			for (auto comp : components)
+			{
+				if (comp.get() == deleteComp)
+				{
+					break;
+				}
+				pos++;
+			}
+			components.erase(components.begin() + pos);
+		}
+	}
+	compsDeletionList.clear();
 }

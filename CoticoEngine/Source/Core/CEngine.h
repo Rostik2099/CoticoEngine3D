@@ -27,12 +27,10 @@ public:
 	void CreateWindow(std::string windowName) { appWindow->CreateWindow(windowName, 800, 800); };
 
 	Renderer* GetRenderer() { return this->renderer; };
-	World* GetWorld() { return this->world; };
 	//Временная функция
 	Camera* GetCamera() { return this->camera; };
 private:
 	AppWindow* appWindow;
 	Camera* camera;
 	Renderer* renderer;
-	World* world;
 };

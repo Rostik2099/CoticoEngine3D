@@ -2,20 +2,14 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include"Core/World.h"
 #include"Memory/SoftReference.h"
 #include"Components/BaseComponent.h"
 
-class World;
 class CObject
 {
 public:
 	CObject() {};
-	CObject(World* world) 
-	{
-		CObject::CObject();
-		this->world = world; 
-	};
-	~CObject() { std::cout << "Object deleted" << std::endl; };
 
 	virtual void Update();
 	void Destroy();
@@ -29,14 +23,15 @@ public:
 	template<typename T>
 	Ref<T> CreateComponent()
 	{
-		std::cout << "Biba" << std::endl;
-		return GetWorld()->SpawnComponent<T>();
+		Ref<T> newComp = GetWorld()->SpawnComponent<T>();
+		std::weak_ptr<BaseComponent> compRef = newComp.Get();
+		components.push_back(compRef);
+		return newComp;
 	};
 
-	World* GetWorld();
-	void SetWorld(World* world) { this->world = world; };
+	World* GetWorld() { return World::Get(); };
+	std::vector<Ref<BaseComponent>> GetComponentsList() { return this->components; };
 private:
-	World* world;
-	std::vector<BaseComponent*> components;
+	std::vector<Ref<BaseComponent>> components;
 };
 

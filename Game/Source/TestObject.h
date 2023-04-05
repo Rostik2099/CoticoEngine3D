@@ -9,5 +9,6 @@ public:
 
 private:
 	Ref<MeshComponent> mesh;
+	Ref<MeshComponent> mesh2;
 };
 

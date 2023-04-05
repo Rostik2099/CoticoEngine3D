@@ -2,24 +2,24 @@
 #include<vector>
 #include<memory>
 #include"Memory/SoftReference.h"
-#include"Components/MeshComponent.h"
 
+class MeshComponent;
 class BaseComponent;
 class CObject;
 class CEngine;
+
 class World
 {
 public:
-	World(CEngine* engine);
 	void Update();
 	void DestroyObject(CObject* object);
 	std::vector<std::shared_ptr<MeshComponent>> GetMeshComps() { return this->meshComps; };
+	void SetEngine(CEngine* engine) { this->engine = engine; };
 
 	template<typename Type>
 	Ref<Type> SpawnObject()
 	{
-		std::shared_ptr<Type> newObj = std::make_shared<Type>(this);
-		newObj->SetWorld(this);
+		std::shared_ptr<Type> newObj = std::make_shared<Type>();
 		objects.push_back(newObj);
 		Ref<Type> objRef(newObj);
 		return objRef;
@@ -29,7 +29,6 @@ public:
 	Ref<Type> SpawnComponent()
 	{
 		std::shared_ptr<Type> newComp = std::make_shared<Type>();
-		newComp->SetWorld(this);
 		if (dynamic_cast<MeshComponent*>(newComp.get()))
 		{
 			this->meshComps.push_back(newComp);
@@ -41,14 +40,23 @@ public:
 		Ref<Type> compRef(newComp);
 		return compRef;
 	};
-private:
-	void DeleteObjects();
 
+	static World* Get()
+	{
+		static World world;
+		return &world;
+	};
+
+private:
+	World() {};
+	void DeleteObjects();
+	void DeleteComps();
 private:
 	CEngine* engine;
 	std::vector<std::shared_ptr<CObject>> objects;
 	std::vector<std::shared_ptr<BaseComponent>> components;
 	std::vector<std::shared_ptr<MeshComponent>> meshComps;
-	std::vector<CObject*> deletionList;
+	std::vector<CObject*> objectDeletionList;
+	std::vector<BaseComponent*> compsDeletionList;
 };
 

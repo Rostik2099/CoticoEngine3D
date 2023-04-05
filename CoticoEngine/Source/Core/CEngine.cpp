@@ -10,18 +10,18 @@ CEngine::CEngine()
 	gladLoadGL();
 
 	renderer = new Renderer(this);
-	world = new World(this);
+	World::Get()->SetEngine(this);
 	camera = new Camera(scrWidth, scrHeight, glm::vec3(0.0f, 0.0f, 2.0f));
 }
 
 void CEngine::Draw()
 {
-	renderer->Render(world->GetMeshComps());
+	renderer->Render();
 }
 
 void CEngine::Update()
 {
-	world->Update();
+	World::Get()->Update();
 	camera->Inputs(appWindow->GetGLWindow());
 	camera->UpdateMatrix(45.0f, 0.1f, 100.f);
 
