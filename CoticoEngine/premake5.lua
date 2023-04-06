@@ -12,11 +12,14 @@ project "CoticoEngine"
 		"Source/**.cpp",
 		"ThirdParty/include/**.c",
 		"ThirdParty/include/stb/stb.cpp",
+		"ThirdParty/include/ImGUI/*.cpp",
+		"ThirdParty/include/ImGUI/*.h",
 	}
 
 	includedirs 
 	{
 		"ThirdParty/include",
+		"ThirdParty/include/ImGUI",
 		"Source",
 	}
 

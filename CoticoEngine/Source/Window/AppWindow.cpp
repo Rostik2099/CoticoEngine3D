@@ -11,6 +11,7 @@ AppWindow::AppWindow()
 AppWindow::~AppWindow() 
 {
 	glfwDestroyWindow(window);
+	glfwTerminate();
 }
 
 void AppWindow::CreateWindow(std::string windowName, int width, int height)

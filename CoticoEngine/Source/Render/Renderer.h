@@ -1,10 +1,12 @@
 #pragma once
+
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<vector>
 #include<memory>
 #include"Components/MeshComponent.h"
 
+#include"EditorUI/EditorUIManager.h"
 #include"Mesh.h"
 
 class CEngine;

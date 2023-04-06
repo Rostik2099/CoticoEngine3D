@@ -10,6 +10,7 @@ public:
 	~MeshComponent();
 
 	Mesh* GetMesh() { return this->mesh; };
+	CVector GetLocation() { return this->location; };
 	virtual void Draw(Camera& camera);
 
 	void SetShaders(const char* vertShader, const char* fragShader);

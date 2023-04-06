@@ -31,5 +31,5 @@ void CEngine::Update()
 CEngine::~CEngine()
 {
 	delete appWindow;
-	glfwTerminate();
+	delete renderer;
 }
