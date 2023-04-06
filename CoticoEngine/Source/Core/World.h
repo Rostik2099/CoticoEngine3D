@@ -5,6 +5,7 @@
 
 class MeshComponent;
 class BaseComponent;
+class Renderer;
 class CObject;
 class CEngine;
 
@@ -47,6 +48,7 @@ public:
 		return &world;
 	};
 
+	Renderer* GetRenderer();
 private:
 	World() {};
 	void DeleteObjects();

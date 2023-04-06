@@ -8,6 +8,7 @@
 
 #include"EditorUI/EditorUIManager.h"
 #include"Mesh.h"
+#include"Render/FrameBuffers/FrameBuffer.h"
 
 class CEngine;
 class Renderer
@@ -17,7 +18,10 @@ public:
 	~Renderer();
 
 	void Render();
+	FrameBuffer* GetFB() { return this->FB; };
+
 private:
 	CEngine* engine;
+	FrameBuffer* FB;
 };
 

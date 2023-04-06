@@ -9,6 +9,9 @@
 class EditorUIManager
 {
 public:
+	void Init(GLFWwindow* window);
+	void BeginRender();
+	void EndRender();
 	void Render();
 
 	static EditorUIManager* GetUIManager()
@@ -28,10 +31,9 @@ public:
 	};
 
 private:
-	EditorUIManager() 
-	{
-		SetCustomColors();
-	};
+	EditorUIManager();
+
+	~EditorUIManager();
 
 	std::vector<ImGUILayer*> layers;
 };

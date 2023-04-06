@@ -1,4 +1,32 @@
 #include "EditorUIManager.h"
+#include "Window/AppWindow.h"
+
+void EditorUIManager::Init(GLFWwindow* window)
+{
+
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& imguiIO = ImGui::GetIO(); (void)imguiIO;
+	//imguiIO.ConfigFlags = ImGuiConfigFlags_DockingEnable;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
+	SetCustomColors();
+}
+
+void EditorUIManager::BeginRender()
+{
+	ImGui_ImplOpenGL3_NewFrame();
+	ImGui_ImplGlfw_NewFrame();
+	ImGui::NewFrame();
+}
+
+void EditorUIManager::EndRender()
+{
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
 
 void EditorUIManager::Render()
 {
@@ -66,6 +94,8 @@ void EditorUIManager::SetCustomColors()
 	colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.00f, 0.00f, 0.00f, 0.70f);
 	colors[ImGuiCol_NavWindowingDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 0.20f);
 	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(1.00f, 0.00f, 0.00f, 0.35f);
+	colors[ImGuiCol_DockingEmptyBg] = ImVec4(0.11f, 0.11f, 0.11f, 1.f);
+	colors[ImGuiCol_DockingPreview] = ImVec4(0.2f, 0.2f, 0.2f, 1.f);
 
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.WindowPadding = ImVec2(8.00f, 8.00f);
@@ -90,4 +120,13 @@ void EditorUIManager::SetCustomColors()
 	style.GrabRounding = 3;
 	style.LogSliderDeadzone = 4;
 	style.TabRounding = 4;
+}
+
+EditorUIManager::EditorUIManager() {}
+
+EditorUIManager::~EditorUIManager()
+{
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }

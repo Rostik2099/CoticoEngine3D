@@ -24,6 +24,11 @@ void World::DestroyObject(CObject* object)
 	}
 }
 
+Renderer* World::GetRenderer()
+{
+	return this->engine->GetRenderer();
+}
+
 void World::DeleteObjects()
 {
 	for (auto deleteObj : objectDeletionList)
