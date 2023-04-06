@@ -7,7 +7,7 @@ void EditorUIManager::Init(GLFWwindow* window)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& imguiIO = ImGui::GetIO(); (void)imguiIO;
-	//imguiIO.ConfigFlags = ImGuiConfigFlags_DockingEnable;
+	imguiIO.ConfigFlags = ImGuiConfigFlags_DockingEnable;
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
@@ -38,6 +38,7 @@ void EditorUIManager::Render()
 
 void EditorUIManager::SetCustomColors()
 {
+
 	ImVec4* colors = ImGui::GetStyle().Colors;
 	colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
 	colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);

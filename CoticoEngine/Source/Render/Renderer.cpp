@@ -7,13 +7,13 @@ Renderer::Renderer(CEngine* engine)
 	glViewport(0, 0, 800, 800);
 	glEnable(GL_DEPTH_TEST);
 
-	FB = new FrameBuffer;
 	EditorUIManager::GetUIManager()->Init(engine->GetWindow()->GetGLWindow());
+	FB = new FrameBuffer;
 }
 
 void Renderer::Render()
 {
-	//glBindFramebuffer(GL_FRAMEBUFFER, FB->FBID);
+	glBindFramebuffer(GL_FRAMEBUFFER, FB->FBID);
 	glClearColor(0.07f, 0.13f, 0.17f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -22,7 +22,7 @@ void Renderer::Render()
 		mesh->Draw(*engine->GetCamera());
 	}
 
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	EditorUIManager::GetUIManager()->BeginRender();
 	EditorUIManager::GetUIManager()->Render();
 	EditorUIManager::GetUIManager()->EndRender();
