@@ -4,14 +4,14 @@
 
 int main()
 {
-	CEngine engine;
+	CEngine* engine = CEngine::Get();
 	LayersHandler layersHandler;
 	World::Get()->SpawnObject<TestObject>();
 
-	while (!engine.WindowShouldClose())
+	while (!engine->WindowShouldClose())
 	{
-		engine.Draw();
-		engine.Update();
+		engine->Draw();
+		engine->Update();
 	}
 
 	return 0;

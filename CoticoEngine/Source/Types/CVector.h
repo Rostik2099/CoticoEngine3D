@@ -23,3 +23,22 @@ public:
 	float z = 0.f;
 };
 
+class CVector2D
+{
+public:
+	CVector2D() {};
+	CVector2D(float a)
+	{
+		x = a;
+		y = a;
+	};
+	CVector2D(float x, float y) 
+	{
+		this->x = x;
+		this->y = y;
+	};
+
+public:
+	float x = 0.0f;
+	float y = 0.0f;
+};

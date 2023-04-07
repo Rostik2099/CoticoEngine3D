@@ -8,6 +8,7 @@
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
 	
+#include "Types/CVector.h"
 #include"Window/AppWindow.h"
 #include"Render/Renderer.h"
 #include"World.h"
@@ -15,7 +16,6 @@
 class CEngine
 {
 public:
-	CEngine();
 	~CEngine();
 
 	void Draw();
@@ -26,11 +26,23 @@ public:
 	bool WindowShouldClose() { return this->appWindow->WindowShouldClose(); };
 	void CreateWindow(std::string windowName) { appWindow->CreateWindow(windowName, 800, 800); };
 
+	CVector2D GetWindowSize();
+	void SetWindowSize(int width, int height);
 	Renderer* GetRenderer() { return this->renderer; };
 	//Временная функция
 	Camera* GetCamera() { return this->camera; };
+
+	static CEngine* Get()
+	{
+		static CEngine engine;
+		return &engine;
+	};
+
+private:
+	CEngine();
 private:
 	AppWindow* appWindow;
 	Camera* camera;
 	Renderer* renderer;
+	int windowWidth = 800, windowHeight = 800;
 };

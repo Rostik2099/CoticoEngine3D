@@ -14,7 +14,7 @@ TestObject::TestObject()
 	mesh3->SetTexture("Content/Textures/o.png");
 	mesh4->SetTexture("Content/Textures/b.png");
 	mesh5->SetTexture("Content/Textures/a.png");
-	mesh->SetTexture("Content/Textures/a.png");
+	mesh->SetTexture("Content/Textures/green+grass.png");
 	//Destroy();
 }
 

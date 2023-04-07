@@ -1,6 +1,6 @@
 #include "AppWindow.h"
 
-AppWindow::AppWindow() 
+AppWindow::AppWindow()
 {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

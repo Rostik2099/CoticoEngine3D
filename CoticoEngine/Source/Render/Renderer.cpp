@@ -1,14 +1,19 @@
 #include "Renderer.h"
 #include "Core/CEngine.h"
 
+void FramebufferCallback(GLFWwindow* window, int width, int height);
+
 Renderer::Renderer(CEngine* engine)
 {
 	this->engine = engine;
-	glViewport(0, 0, 800, 800);
+	CVector2D windowSize = engine->GetWindowSize();
+	glViewport(0, 0, windowSize.x, windowSize.y);
 	glEnable(GL_DEPTH_TEST);
 
 	EditorUIManager::GetUIManager()->Init(engine->GetWindow()->GetGLWindow());
-	FB = new FrameBuffer;
+	glfwSetFramebufferSizeCallback(engine->GetWindow()->GetGLWindow(), FramebufferCallback);
+
+	FB = new FrameBuffer(engine);
 }
 
 void Renderer::Render()
@@ -23,6 +28,7 @@ void Renderer::Render()
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	EditorUIManager::GetUIManager()->BeginRender();
 	EditorUIManager::GetUIManager()->Render();
 	EditorUIManager::GetUIManager()->EndRender();
@@ -33,4 +39,9 @@ void Renderer::Render()
 Renderer::~Renderer() 
 {
 	
+}
+
+void FramebufferCallback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }

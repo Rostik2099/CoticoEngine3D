@@ -6,7 +6,7 @@ class BaseComponent
 {
 public:
 	BaseComponent() {};
-	~BaseComponent() { std::cout << "Component deleted" << std::endl; };
+	~BaseComponent() {};
 
 	virtual void Update() {};
 protected:
