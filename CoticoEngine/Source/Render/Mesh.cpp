@@ -1,10 +1,10 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures)
+Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Texture* texture)
 {
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textures = textures;
+	this->texture = texture;
 
 	VAO.Bind();
 	VBO VBO(vertices);
@@ -21,10 +21,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
 
 Mesh::~Mesh()
 {
-	for (auto texture : textures)
-	{
-		texture.Delete();
-	}
+	texture->Delete();
 }
 
 void Mesh::Draw(Shader& shader, Camera& camera)
@@ -33,19 +30,21 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 	VAO.Bind();
 	
 	unsigned int numDiffuse = 0;
-	
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		std::string num;
-		std::string type = textures[i].type;
-		num = std::to_string(numDiffuse++);
-		textures[i].texUnit(shader, (type + num).c_str(), i);
-		textures[i].Bind();
-	}
+	std::string num;
+	std::string type = texture->type;
+	num = std::to_string(numDiffuse++);
+	texture->texUnit(shader, (type + num).c_str(), 0);
+	texture->Bind();
 	
 	camera.Matrix(shader, "camMatrix");
 	
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	VAO.UnBind();
-	textures[0].UnBind();
+	texture->UnBind();
+}
+
+void Mesh::SetTexture(Texture* texture)
+{
+	this->texture->Delete();
+	this->texture = texture;
 }

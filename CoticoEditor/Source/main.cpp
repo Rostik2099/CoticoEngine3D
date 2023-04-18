@@ -5,8 +5,8 @@
 int main()
 {
 	CEngine* engine = CEngine::Get();
-	LayersHandler layersHandler;
 	World::Get()->SpawnObject<TestObject>();
+	LayersHandler layersHandler;
 
 	while (!engine->WindowShouldClose())
 	{

@@ -12,15 +12,16 @@
 class Mesh
 {
 public:
-	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures);
+	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Texture* texture);
 	~Mesh();
 
 	void Draw(Shader& shader, Camera& camera);
+	void SetTexture(Texture* texture);
 
 public:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
-	std::vector<Texture> textures;
+	Texture* texture;
 
 	VAO VAO;
 };

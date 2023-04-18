@@ -18,16 +18,12 @@ GLuint indices[] =
 
 MeshComponent::MeshComponent()
 {
-	Texture textures[]
-	{
-		Texture("Content/Textures/unnamed.png", "diffuse", 0),
-	};
+	Texture* texture = new Texture("Content/Textures/unnamed.png", "diffuse", 0);
 	shaderProgram = new Shader("Shaders/default_vert.glsl", "Shaders/default_frag.glsl");
 
 	std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
 	std::vector<GLuint> inds(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
-	this->mesh = new Mesh(verts, inds, texs);
+	this->mesh = new Mesh(verts, inds, texture);
 }
 
 MeshComponent::~MeshComponent()
@@ -50,12 +46,8 @@ void MeshComponent::SetShaders(const char* vertShader, const char* fragShader)
 
 void MeshComponent::SetTexture(const char* texturePath)
 {
-	Texture textures[]
-	{
-		Texture(texturePath, "diffuse", 0),
-	};
-	std::vector<Texture> texs(textures, textures + sizeof(textures) / sizeof(Texture));
-	mesh->textures = texs;
+	Texture* newTexture = new Texture(texturePath, "diffuse", 0);
+	mesh->SetTexture(newTexture);
 }
 
 void MeshComponent::SetLocation(CVector newLoc)

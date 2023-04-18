@@ -49,6 +49,7 @@ public:
 	};
 
 	Renderer* GetRenderer();
+	std::vector<std::shared_ptr<CObject>> GetObjectsList() { return this->objects; };
 private:
 	World() {};
 	void DeleteObjects();

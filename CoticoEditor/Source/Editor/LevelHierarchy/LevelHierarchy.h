@@ -4,8 +4,9 @@
 class LevelHierarchy : public ImGUILayer
 {
 public:
-	LevelHierarchy() {};
+	LevelHierarchy();
 
 	void Render() override;
+	void UpdateList();
 };
 

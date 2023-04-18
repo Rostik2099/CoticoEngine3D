@@ -6,8 +6,9 @@ void FramebufferCallback(GLFWwindow* window, int width, int height);
 Renderer::Renderer(CEngine* engine)
 {
 	this->engine = engine;
-	CVector2D windowSize = engine->GetWindowSize();
-	glViewport(0, 0, windowSize.x, windowSize.y);
+	int windowX, windowY;
+	engine->GetWindowSize(windowX, windowY);
+	glViewport(0, 0, windowX, windowY);
 	glEnable(GL_DEPTH_TEST);
 
 	EditorUIManager::GetUIManager()->Init(engine->GetWindow()->GetGLWindow());

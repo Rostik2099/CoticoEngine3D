@@ -11,6 +11,7 @@ public:
 	void Update() override;
 
 private:
+	Ref<CubeMapComponent> cubeMap;
 	Ref<MeshComponent> mesh;
 	Ref<MeshComponent> mesh2;
 	Ref<MeshComponent> mesh3;

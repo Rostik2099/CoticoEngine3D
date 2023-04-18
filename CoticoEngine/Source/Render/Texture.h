@@ -12,9 +12,9 @@ public:
 	Texture(const char* imagePath, const char* texType, GLenum slot);
 
 	void texUnit(Shader& shader, const char* uniform, GLuint unit);
-	void Bind();
-	void UnBind();
-	void Delete();
+	virtual void Bind();
+	virtual void UnBind();
+	virtual void Delete();
 	
 public:
 	GLuint ID;

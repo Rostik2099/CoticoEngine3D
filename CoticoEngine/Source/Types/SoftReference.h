@@ -18,7 +18,7 @@ public:
 	T* operator->() const { return this->ptr.lock().get(); };
 	operator bool() const
 	{
-		if (ptr.expired()) return true;
+		if (!ptr.expired()) return true;
 		else return false;
 	};
 
