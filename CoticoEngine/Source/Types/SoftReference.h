@@ -1,11 +1,18 @@
 #pragma once
 #include<memory>
 
+class CObject;
 template<typename T>
 class Ref
 {
 public:
 	Ref() {};
+
+	Ref(T* object) 
+	{
+		std::shared_ptr<T> point = std::make_shared<T>(*object);
+		this->ptr = point;
+	};
 	Ref(std::weak_ptr<T> pointer)
 	{
 		this->ptr = pointer;

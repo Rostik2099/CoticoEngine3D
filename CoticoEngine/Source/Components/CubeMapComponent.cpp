@@ -63,7 +63,7 @@ void CubeMapComponent::Draw(Camera& camera)
 	view = glm::mat4(glm::mat3(glm::lookAt(camera.position, camera.position + camera.orientation, camera.up)));
 	int windowX, windowY;
 	CEngine::Get()->GetWindowSize(windowX, windowY);
-	projection = glm::perspective(glm::radians(75.0f), (float)(windowX / windowY), 0.1f, 100.f);
+	projection = glm::perspective(glm::radians(75.0f), ((float)windowX / (float)windowY), 0.1f, 100.f);
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 

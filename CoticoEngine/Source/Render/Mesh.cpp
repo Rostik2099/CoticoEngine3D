@@ -22,6 +22,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Texture*
 Mesh::~Mesh()
 {
 	texture->Delete();
+	delete texture;
 }
 
 void Mesh::Draw(Shader& shader, Camera& camera)

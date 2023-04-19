@@ -44,5 +44,8 @@ Renderer::~Renderer()
 
 void FramebufferCallback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, width, height);
+	if (width != 0 && height != 0)
+	{
+		glViewport(0, 0, width, height);
+	}
 }

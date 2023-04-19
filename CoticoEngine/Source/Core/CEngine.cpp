@@ -61,9 +61,12 @@ void CEngine::SetWindowSize(int width, int height)
 
 void WindowResizeCallback(GLFWwindow* window, int width, int height)
 {
-	CEngine::Get()->Draw();
-	CEngine::Get()->SetWindowSize(width, height);
-	CEngine::Get()->GetRenderer()->GetFB()->RegenerateBuffer();
+	if (width != 0 && height != 0)
+	{
+		CEngine::Get()->Draw();
+		CEngine::Get()->SetWindowSize(width, height);
+		CEngine::Get()->GetRenderer()->GetFB()->RegenerateBuffer();
+	}
 }
 
 CEngine::~CEngine()

@@ -27,6 +27,7 @@ protected:
 		return newLayer.get();
 	};
 
+	bool HasFocus();
 	void RenderChildren();
 
 	std::vector<std::shared_ptr<ImGUILayer>> childLayers;
