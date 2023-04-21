@@ -10,6 +10,7 @@ public:
 	TestObject();
 
 	void Update() override;
+	void BeginPlay() override;
 
 	void SayMyName();
 

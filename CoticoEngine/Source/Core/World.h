@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<unordered_map>
 #include<memory>
 #include"Types/SoftReference.h"
 
@@ -14,15 +15,18 @@ class World
 public:
 	void Update();
 	void DestroyObject(CObject* object);
-	std::vector<std::shared_ptr<MeshComponent>> GetMeshComps() { return this->meshComps; };
+	std::unordered_map<std::string, std::shared_ptr<MeshComponent>> GetMeshComps() { return this->meshComps; };
 	void SetEngine(CEngine* engine) { this->engine = engine; };
 
 	template<typename Type>
 	Ref<Type> SpawnObject()
 	{
 		std::shared_ptr<Type> newObj = std::make_shared<Type>();
-		objects.push_back(newObj);
+		std::string newID = GenerateUUID();
+		newObj->SetUUID(newID);
+		objects[newID] = newObj;
 		Ref<Type> objRef(newObj);
+		newObj->BeginPlay();
 		return objRef;
 	};
 
@@ -30,13 +34,15 @@ public:
 	Ref<Type> SpawnComponent()
 	{
 		std::shared_ptr<Type> newComp = std::make_shared<Type>();
+		std::string newID = GenerateUUID();
+		newComp->SetUUID(newID);
 		if (dynamic_cast<MeshComponent*>(newComp.get()))
 		{
-			this->meshComps.push_back(newComp);
+			this->meshComps[newID] = newComp;
 		}
 		else
 		{
-			components.push_back(newComp);
+			this->components[newID] = newComp;
 		}
 		Ref<Type> compRef(newComp);
 		return compRef;
@@ -49,16 +55,21 @@ public:
 	};
 
 	Renderer* GetRenderer();
-	std::vector<std::shared_ptr<CObject>> GetObjectsList() { return this->objects; };
+	std::unordered_map<std::string, std::shared_ptr<CObject>> GetObjectsList() { return this->objects; };
+	std::shared_ptr<CObject> GetObjectWithID(std::string UUID);
+	std::shared_ptr<BaseComponent> GetComponentWithID(std::string UUID);
+
 private:
 	World() {};
 	void DeleteObjects();
 	void DeleteComps();
+	std::string GenerateUUID();
+
 private:
 	CEngine* engine;
-	std::vector<std::shared_ptr<CObject>> objects;
-	std::vector<std::shared_ptr<BaseComponent>> components;
-	std::vector<std::shared_ptr<MeshComponent>> meshComps;
+	std::unordered_map<std::string, std::shared_ptr<CObject>> objects;
+	std::unordered_map<std::string, std::shared_ptr<BaseComponent>> components;
+	std::unordered_map<std::string, std::shared_ptr<MeshComponent>> meshComps;
 	std::vector<CObject*> objectDeletionList;
 	std::vector<BaseComponent*> compsDeletionList;
 };

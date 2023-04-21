@@ -2,12 +2,13 @@
 #include"CEngine.h"
 #include"CObject.h"
 #include"Components/BaseComponent.h"
+#include"UUID/uuid.h"
 #include"Components/CubeMapComponent.h"
 #include<iostream>
 
 void World::Update()
 {
-	for (auto obj : objects)
+	for (auto [id, obj] : objects)
 	{
 		obj->Update();
 	}
@@ -29,20 +30,21 @@ Renderer* World::GetRenderer()
 	return this->engine->GetRenderer();
 }
 
+std::shared_ptr<CObject> World::GetObjectWithID(std::string UUID)
+{
+	return objects[UUID];
+}
+
+std::shared_ptr<BaseComponent> World::GetComponentWithID(std::string UUID)
+{
+	return components[UUID];
+}
+
 void World::DeleteObjects()
 {
 	for (auto deleteObj : objectDeletionList)
 	{
-		int pos = 0;
-		for (auto obj : objects)
-		{
-			if (obj.get() == deleteObj)
-			{
-				break;
-			}
-			pos++;
-		}
-		objects.erase(objects.begin() + pos);
+		objects.erase(deleteObj->GetUUID());
 	}
 	objectDeletionList.clear();
 }
@@ -51,31 +53,21 @@ void World::DeleteComps()
 {
 	for (auto deleteComp : compsDeletionList)
 	{
-		int pos = 0;
 		if (dynamic_cast<MeshComponent*>(deleteComp))
 		{
-			for (auto comp : meshComps)
-			{
-				if (comp.get() == deleteComp)
-				{
-					break;
-				}
-				pos++;
-			}
-			meshComps.erase(meshComps.begin() + pos);
+			meshComps.erase(deleteComp->GetUUID());
 		}
 		else
 		{
-			for (auto comp : components)
-			{
-				if (comp.get() == deleteComp)
-				{
-					break;
-				}
-				pos++;
-			}
-			components.erase(components.begin() + pos);
+			components.erase(deleteComp->GetUUID());
 		}
 	}
 	compsDeletionList.clear();
+}
+
+std::string World::GenerateUUID()
+{
+	UUIDv4::UUIDGenerator<std::mt19937_64> uuidGenerator;
+	UUIDv4::UUID uuid = uuidGenerator.getUUID();
+	return uuid.str();
 }

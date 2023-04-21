@@ -1,6 +1,10 @@
 #include"CObject.h"
 #include"World.h"
 
+void CObject::BeginPlay()
+{
+}
+
 void CObject::Update()
 {
 }

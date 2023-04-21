@@ -11,7 +11,7 @@ uniform vec3 location;
 
 void main()
 {
-	gl_Position = camMatrix * vec4(aPos /*+ location*/, 1.0);
+	gl_Position = camMatrix * vec4(aPos + location, 1.0);
 	color = aColor;	
 	texCoord = aTex;
 }

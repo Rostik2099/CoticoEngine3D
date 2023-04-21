@@ -16,7 +16,7 @@ void LevelHierarchy::Render()
 
 void LevelHierarchy::UpdateList()
 {
-	for (auto object : World::Get()->GetObjectsList())
+	for (auto [id, object] : World::Get()->GetObjectsList())
 	{
 		HierarchyObject* newObject = CreateChildLayer<HierarchyObject>();
 		newObject->SetObject(object.get());

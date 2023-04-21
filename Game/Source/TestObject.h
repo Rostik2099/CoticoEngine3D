@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/CObject.h"
 #include "Components/MeshComponent.h"
+#include "Events/Event.h"
 #include "Components/CubeMapComponent.h"
 
 class TestObject : public CObject
@@ -10,11 +11,11 @@ public:
 
 	void Update() override;
 
+	void SayMyName();
+
 private:
+	Ref<CubeMapComponent> cubeMap;
 	Ref<MeshComponent> mesh;
-	Ref<MeshComponent> mesh2;
-	Ref<MeshComponent> mesh3;
-	Ref<MeshComponent> mesh4;
-	Ref<MeshComponent> mesh5;
+	Event test;
 };
 

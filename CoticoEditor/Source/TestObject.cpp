@@ -9,13 +9,17 @@ TestObject::TestObject()
 	mesh = CreateComponent<MeshComponent>();
 	mesh->SetTexture("Content/Textures/unnamed.png");
 	SpawnObject<CObject>();
-	test.AddListener(this, &TestObject::SayMyName);
-	test.Broadcast();
 	//Destroy();
 }
 
 void TestObject::Update()
 {
+}
+
+void TestObject::BeginPlay()
+{
+	test.AddListener(this, &TestObject::SayMyName);
+	test.Broadcast();
 }
 
 void TestObject::SayMyName()

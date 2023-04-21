@@ -10,8 +10,8 @@ public:
 
 	Ref(T* object) 
 	{
-		std::shared_ptr<T> point = std::make_shared<T>(*object);
-		this->ptr = point;
+		std::shared_ptr<T> pointer = std::static_pointer_cast<T>(World::Get()->GetObjectWithID(object->GetUUID()));
+		this->ptr = pointer;
 	};
 	Ref(std::weak_ptr<T> pointer)
 	{

@@ -11,9 +11,13 @@ class CObject
 public:
 	CObject() {};
 
+	virtual void BeginPlay();
 	virtual void Update();
 	void Destroy();
 	std::vector<Ref<BaseComponent>> GetComponentsList() { return this->components; };
+
+	void SetUUID(std::string uuid) { this->uuid = uuid; };
+	std::string GetUUID() { return this->uuid; };
 
 protected:
 	template<typename T>
@@ -34,5 +38,6 @@ protected:
 	World* GetWorld() { return World::Get(); };
 private:
 	std::vector<Ref<BaseComponent>> components;
+	std::string uuid;
 };
 

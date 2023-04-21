@@ -14,6 +14,7 @@ project "CoticoEngine"
 		"ThirdParty/include/stb/stb.cpp",
 		"ThirdParty/include/ImGUI/*.cpp",
 		"ThirdParty/include/ImGUI/*.h",
+		"ThirdParty/include/UUID/*.h",
 	}
 
 	includedirs 
