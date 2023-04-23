@@ -14,6 +14,6 @@ void Event::Broadcast()
 {
 	for (auto callback : callbacks)
 	{
-		(*callback)();
+		callback->Run();
 	}
 }

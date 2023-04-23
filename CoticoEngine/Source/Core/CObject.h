@@ -3,6 +3,7 @@
 #include<vector>
 #include<string>
 #include"Core/World.h"
+#include"Input/InputManager.h"
 #include"Types/SoftReference.h"
 #include"Components/BaseComponent.h"
 
@@ -13,6 +14,7 @@ public:
 
 	virtual void BeginPlay();
 	virtual void Update();
+	virtual void SetupInputs(InputManager* inputManager);
 	void Destroy();
 	std::vector<Ref<BaseComponent>> GetComponentsList() { return this->components; };
 
@@ -34,7 +36,7 @@ protected:
 		components.push_back(compRef);
 		return newComp;
 	};
-
+	
 	World* GetWorld() { return World::Get(); };
 private:
 	std::vector<Ref<BaseComponent>> components;

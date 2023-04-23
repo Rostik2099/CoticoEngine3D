@@ -26,6 +26,7 @@ public:
 		newObj->SetUUID(newID);
 		objects[newID] = newObj;
 		Ref<Type> objRef(newObj);
+		newObj->SetupInputs(InputManager::Get());
 		newObj->BeginPlay();
 		return objRef;
 	};
@@ -45,6 +46,7 @@ public:
 			this->components[newID] = newComp;
 		}
 		Ref<Type> compRef(newComp);
+		newComp->BeginPlay();
 		return compRef;
 	};
 

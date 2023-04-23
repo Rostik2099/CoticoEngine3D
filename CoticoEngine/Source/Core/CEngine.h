@@ -12,6 +12,7 @@
 #include"Window/AppWindow.h"
 #include"Render/Renderer.h"
 #include"World.h"
+#include"Input/InputManager.h"
 
 class CEngine
 {
@@ -44,5 +45,6 @@ private:
 	AppWindow* appWindow;
 	Camera* camera;
 	Renderer* renderer;
+	InputManager* inputManager;
 	int windowWidth = 1600, windowHeight = 900;
 };

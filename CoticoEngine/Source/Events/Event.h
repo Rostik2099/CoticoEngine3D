@@ -15,8 +15,8 @@ public:
 		callbacks.push_back(newCallback);
 	};
 
-	void Broadcast();
-private:
+	virtual void Broadcast();
+protected:
 	std::vector<IEventCallback*> callbacks;
 };
 

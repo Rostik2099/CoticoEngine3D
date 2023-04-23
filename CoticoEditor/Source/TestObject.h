@@ -10,9 +10,12 @@ public:
 	TestObject();
 
 	void Update() override;
+	void SetupInputs(InputManager* inputManager) override;
 	void BeginPlay() override;
 
 	void SayMyName();
+	void YouAreRight();
+	void Walk(float scale);
 
 private:
 	Ref<CubeMapComponent> cubeMap;

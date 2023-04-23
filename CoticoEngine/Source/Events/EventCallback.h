@@ -2,24 +2,22 @@
 #include <vector>
 #include "Types/SoftReference.h"
 
-class IEventCallback 
+class IEventCallback
 {
 public:
-	virtual bool operator() () = 0;
+	virtual void Run() = 0;
 };
 
 template<typename T>
 class EventCallback : public IEventCallback
 {
 public:
-	bool operator() () override
+	void Run() override
 	{
 		if (listener)
 		{
 			(listener.GetRaw()->*function)();
-			return true;
 		}
-		return false;
 	};
 
 	EventCallback(T* object, void(T::*func)()) 

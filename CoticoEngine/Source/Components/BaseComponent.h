@@ -8,6 +8,7 @@ public:
 	BaseComponent() {};
 	~BaseComponent() {};
 
+	virtual void BeginPlay() {};
 	virtual void Update() {};
 
 	void SetUUID(std::string uuid) { this->uuid = uuid; };

@@ -9,6 +9,10 @@ void CObject::Update()
 {
 }
 
+void CObject::SetupInputs(InputManager* inputManager)
+{
+}
+
 void CObject::Destroy()
 {
 	GetWorld()->DestroyObject(this);
