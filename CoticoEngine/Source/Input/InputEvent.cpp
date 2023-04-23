@@ -7,6 +7,7 @@ AxisEvent::AxisEvent()
 void AxisEvent::Press()
 {
 	InputEvent::Press();
+	this->scale = this->GetParams().scale;
 	for (auto callback : callbacks)
 	{
 		callback->Broadcast(AxisEvent::scale);
@@ -17,6 +18,7 @@ void AxisEvent::Release()
 {
 	if (pressed)
 	{
+		this->scale = 0;
 	}
 	InputEvent::Release();
 }

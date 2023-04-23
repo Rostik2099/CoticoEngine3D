@@ -7,7 +7,7 @@ void EditorUIManager::Init(GLFWwindow* window)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& imguiIO = ImGui::GetIO(); (void)imguiIO;
-	imguiIO.ConfigFlags = ImGuiConfigFlags_DockingEnable;
+	imguiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
