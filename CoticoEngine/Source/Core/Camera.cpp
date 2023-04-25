@@ -78,8 +78,6 @@ void Camera::Inputs(GLFWwindow* window)
 		float rotX = sensitivity * (float)(mouseY - (height / 2)) / (float)height;
 		float rotY = sensitivity * (float)(mouseX - (width / 2)) / (float)width;
 
-		std::cout << "X: " << rotX << " Y: " << rotY << std::endl;
-
 		glm::vec3 newOrientation = glm::rotate(orientation, glm::radians(-rotX), 
 			glm::normalize(glm::cross(orientation, up)));
 

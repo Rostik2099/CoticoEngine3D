@@ -59,6 +59,12 @@ std::string Shader::GetFileContents(const char* fileName)
 	else std::cout << "Failed to open file: " << fileName << std::endl;
 }
 
+void Shader::SetMatrix(const char* name, glm::mat4 matrix)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE,
+		glm::value_ptr(matrix));
+}
+
 void Shader::CompileErrors(unsigned int shader, const char* type) 
 {
 	GLint hasCompiled; 

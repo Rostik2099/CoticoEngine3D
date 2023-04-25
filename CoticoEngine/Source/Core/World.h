@@ -64,11 +64,12 @@ public:
 	std::shared_ptr<CObject> GetObjectWithID(std::string UUID);
 	std::shared_ptr<BaseComponent> GetComponentWithID(std::string UUID);
 
+	std::string GenerateUUID();
+
 private:
 	World() {};
 	void DeleteObjects();
 	void DeleteComps();
-	std::string GenerateUUID();
 
 public:
 	ObjectEvent onObjectAdd;

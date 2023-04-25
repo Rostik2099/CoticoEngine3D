@@ -3,6 +3,7 @@
 #include<ImGUI/imgui_impl_glfw.h>
 #include<ImGUI/imgui_impl_opengl3.h>
 #include<vector>
+#include<string>
 #include<memory>
 #include"Types/SoftReference.h"
 
@@ -12,6 +13,8 @@ public:
 	ImGUILayer() {};
 
 	virtual void Render() {};
+	void SetUUID(std::string uuid) { this->uuid = uuid; };
+	std::string GetUUID() { return this->uuid; };
 
 protected:
 	template<typename T>
@@ -32,5 +35,7 @@ protected:
 	void RenderChildren();
 
 	std::vector<std::shared_ptr<ImGUILayer>> childLayers;
+
+	std::string uuid;
 };
 

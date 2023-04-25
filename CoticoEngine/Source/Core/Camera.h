@@ -18,6 +18,8 @@ public:
 	void Matrix(Shader& shader, const char* uniform);
 	void Inputs(GLFWwindow* window);
 
+	glm::mat4 GetMatrix() { return this->cameraMatrix; };
+
 public:
 	glm::vec3 position;
 	glm::vec3 orientation = glm::vec3(0.0f, 0.0f, -1.f);

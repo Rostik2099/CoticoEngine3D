@@ -15,7 +15,7 @@ public:
 	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, Texture* texture);
 	~Mesh();
 
-	void Draw(Shader& shader, Camera& camera);
+	void Draw(Shader& shader, Camera& camera, glm::mat4 modelMatrix = glm::mat4(0.f));
 	void SetTexture(Texture* texture);
 
 public:

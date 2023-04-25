@@ -30,9 +30,9 @@ void EditorUIManager::EndRender()
 
 void EditorUIManager::Render()
 {
-	for (auto layer : layers)
+	for (auto [id, layer] : layers)
 	{
-		layer->Render();
+		layer.get()->Render();
 	}
 }
 
@@ -127,6 +127,7 @@ EditorUIManager::EditorUIManager() {}
 
 EditorUIManager::~EditorUIManager()
 {
+	layers.clear();
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();

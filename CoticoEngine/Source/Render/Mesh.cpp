@@ -25,7 +25,7 @@ Mesh::~Mesh()
 	delete texture;
 }
 
-void Mesh::Draw(Shader& shader, Camera& camera)
+void Mesh::Draw(Shader& shader, Camera& camera, glm::mat4 modelMatrix)
 {
 	shader.Activate(); 
 	VAO.Bind();
@@ -37,7 +37,7 @@ void Mesh::Draw(Shader& shader, Camera& camera)
 	texture->texUnit(shader, (type + num).c_str(), 0);
 	texture->Bind();
 	
-	camera.Matrix(shader, "camMatrix");
+	shader.SetMatrix("modelMatrix", camera.GetMatrix() * modelMatrix);
 	
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	VAO.UnBind();

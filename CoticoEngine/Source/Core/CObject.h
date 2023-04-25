@@ -34,6 +34,7 @@ protected:
 		Ref<T> newComp = GetWorld()->SpawnComponent<T>();
 		std::weak_ptr<BaseComponent> compRef = newComp.Get();
 		components.push_back(compRef);
+		newComp->SetOwner(this);
 		return newComp;
 	};
 	

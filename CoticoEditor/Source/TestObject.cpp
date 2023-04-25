@@ -7,6 +7,9 @@ TestObject::TestObject()
 {
 	cubeMap = CreateComponent<CubeMapComponent>();
 	mesh = CreateComponent<MeshComponent>();
+	mesh->SetLocation(CVector(0.f, -0.2f, 0.f));
+	mesh->SetRotation(CVector(45.f, 0.f, 0.f));
+	mesh->SetScale(CVector(10.f));
 	mesh->SetTexture("Content/Textures/unnamed.png");
 	Ref<CObject> aboba = SpawnObject<CObject>();
 	aboba->Destroy();
