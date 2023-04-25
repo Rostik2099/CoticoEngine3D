@@ -4,6 +4,7 @@
 #include<ImGUI/imgui_impl_opengl3.h>
 #include<vector>
 #include<memory>
+#include"Types/SoftReference.h"
 
 class ImGUILayer
 {

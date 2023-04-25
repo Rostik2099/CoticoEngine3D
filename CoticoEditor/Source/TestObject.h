@@ -20,6 +20,5 @@ public:
 private:
 	Ref<CubeMapComponent> cubeMap;
 	Ref<MeshComponent> mesh;
-	Event test;
 };
 

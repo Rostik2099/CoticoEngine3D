@@ -5,5 +5,8 @@ HierarchyObject::HierarchyObject() {}
 
 void HierarchyObject::Render()
 {
-	ImGui::Button(typeid(*object).name());
+	if (object)
+	{
+		ImGui::Button(typeid(*object.GetRaw()).name());
+	}
 }

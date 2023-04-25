@@ -8,9 +8,9 @@ public:
 	HierarchyObject();
 
 	void Render() override;
-	void SetObject(CObject* object) { this->object = object; };
+	void SetObject(Ref<CObject> object) { this->object = object; };
 
 private:
-	CObject* object;
+	Ref<CObject> object;
 };
 

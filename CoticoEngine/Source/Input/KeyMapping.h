@@ -40,9 +40,7 @@ public:
 		//keyMapping[C   67
 		keyMapping["D"] = 68;
 		//keyMapping[E   69
-		//keyMapping[
-		//keyMapping[F   70
-		//keyMapping[
+		keyMapping["F"] = 70;
 		//keyMapping[G   71
 		//keyMapping[
 		//keyMapping[H   72

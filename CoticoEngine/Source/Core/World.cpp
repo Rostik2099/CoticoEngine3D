@@ -23,6 +23,7 @@ void World::DestroyObject(CObject* object)
 	{
 		compsDeletionList.push_back(comp.GetRaw());
 	}
+	onObjectDelete.Broadcast(object);
 }
 
 Renderer* World::GetRenderer()

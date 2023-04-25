@@ -2,7 +2,9 @@
 #include<vector>
 #include<unordered_map>
 #include<memory>
+#include"Events/ObjectEvent/ObjectEvent.h"
 #include"Types/SoftReference.h"
+
 
 class MeshComponent;
 class BaseComponent;
@@ -28,6 +30,7 @@ public:
 		Ref<Type> objRef(newObj);
 		newObj->SetupInputs(InputManager::Get());
 		newObj->BeginPlay();
+		onObjectAdd.Broadcast(newObj.get());
 		return objRef;
 	};
 
@@ -67,6 +70,9 @@ private:
 	void DeleteComps();
 	std::string GenerateUUID();
 
+public:
+	ObjectEvent onObjectAdd;
+	ObjectEvent onObjectDelete;
 private:
 	CEngine* engine;
 	std::unordered_map<std::string, std::shared_ptr<CObject>> objects;

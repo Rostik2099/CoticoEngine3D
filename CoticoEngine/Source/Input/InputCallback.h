@@ -1,6 +1,6 @@
 #pragma once
-#include"Events/EventCallback.h"
 #include"KeyMapping.h"
+#include"Types/SoftReference.h"
 
 class IAxisCallback
 {

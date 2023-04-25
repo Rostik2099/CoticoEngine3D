@@ -26,8 +26,6 @@ void TestObject::SetupInputs(InputManager* inputManager)
 
 void TestObject::BeginPlay()
 {
-	test.AddListener(this, &TestObject::SayMyName);
-	test.Broadcast();
 }
 
 void TestObject::SayMyName()

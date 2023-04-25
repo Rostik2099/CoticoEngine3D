@@ -38,8 +38,8 @@ void CEngine::Update()
 	counter++;
 	if (timeDiff >= 1.0 / 30.0)
 	{
-		std::string FPS = std::to_string((1.0 / timeDiff) * counter);
-		std::string ms = std::to_string((timeDiff/counter) * 1000);
+		std::string FPS = std::to_string((1.0 / timeDiff) * counter).substr(0, 4) + " fps";
+		std::string ms = std::to_string((timeDiff/counter) * 1000).substr(0, 4) + " ms";
 		std::string newTitle = "CoticoEngine " + FPS + " / " + ms;
 		glfwSetWindowTitle(appWindow->GetGLWindow(), newTitle.c_str());
 		prevTime = crntTime;

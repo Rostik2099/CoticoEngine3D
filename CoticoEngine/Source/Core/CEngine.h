@@ -7,8 +7,7 @@
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
-	
-#include "Types/CVector.h"
+
 #include"Window/AppWindow.h"
 #include"Render/Renderer.h"
 #include"World.h"
