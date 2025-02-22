@@ -14,7 +14,6 @@ public:
 	{
 		std::shared_ptr<T> pointer;
 		if(dynamic_cast<CObject*>(object)) pointer = std::dynamic_pointer_cast<T>(World::Get()->GetObjectWithID(object->GetUUID()));
-		//if(dynamic_cast<ImGUILayer*>(object)) pointer = std::dynamic_pointer_cast<T>(EditorUIManager::GetUIManager()->GetLayerWithID(object->GetUUID()));
 		this->ptr = pointer;
 	};
 	Ref(std::weak_ptr<T> pointer)
@@ -26,15 +25,24 @@ public:
 		this->ptr = pointer;
 	};
 
-	T* operator->() const { return this->ptr.lock().get(); };
+	T* operator->() const
+	{
+		auto lockedPtr = this->ptr.lock();
+		return lockedPtr ? lockedPtr.get() : nullptr;
+	};
+
 	operator bool() const
 	{
-		if (!ptr.expired()) return true;
-		else return false;
+		return !ptr.expired();
 	};
 
 	std::weak_ptr<T> Get() { return this->ptr; };
-	T* GetRaw() { return this->ptr.lock().get(); };
+
+	T* GetRaw() 
+	{
+		auto lockedPtr = this->ptr.lock();
+		return lockedPtr ? lockedPtr.get() : nullptr;
+	};
 
 private:
 	std::weak_ptr<T> ptr;
