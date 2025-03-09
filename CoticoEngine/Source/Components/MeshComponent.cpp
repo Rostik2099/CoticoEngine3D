@@ -77,10 +77,10 @@ void MeshComponent::SetTransform(CTransform newTransform)
 void MeshComponent::UpdateMatrix()
 {
 	glm::mat4 newMatrix = glm::mat4(1.f);
-	newMatrix = glm::scale(modelMatrix, glm::vec3(transform.scale.x, transform.scale.y, transform.scale.z));
+	newMatrix = glm::translate(newMatrix, glm::vec3(transform.location.x, transform.location.y, transform.location.z));
 	newMatrix = glm::rotate(newMatrix, glm::radians(transform.rotation.x), glm::vec3(1.f, 0.f, 0.f));
 	newMatrix = glm::rotate(newMatrix, glm::radians(transform.rotation.y), glm::vec3(0.f, 1.f, 0.f));
 	newMatrix = glm::rotate(newMatrix, glm::radians(transform.rotation.z), glm::vec3(0.f, 0.f, 1.f));
-	newMatrix = glm::translate(newMatrix, glm::vec3(transform.location.x, transform.location.y, transform.location.z));
+	newMatrix = glm::scale(newMatrix, glm::vec3(transform.scale.x, transform.scale.y, transform.scale.z));
 	modelMatrix = newMatrix;
 }
